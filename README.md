@@ -1,0 +1,1 @@
+# lambda_functional_interface_test
