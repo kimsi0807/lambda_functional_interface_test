@@ -2,6 +2,7 @@ package lambda_express;
 
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import lambda_express.RosterTest.CheckPerson;
@@ -83,17 +84,37 @@ public class RosterTest {
 									p.getAge() > 18 &&
 									p.getAge() <30
 									);
-		
+		//4
 		printPersonsWithPredicate(personList, (Person p) -> p.getGender() == Person.Sex.MALE
 				&& p.getAge() > 18
 				&& p.getAge() < 30
 				);
-		
+		//5
 		printPersonsWithPredicateAndConsumer(personList, 
 				(person) -> person.getGender()==Person.Sex.MALE && person.getAge() > 18,
 				(person) -> person.printPerson()
 				);
+		//6
+		processPersonsWithFunction(personList, 
+				(p) -> p.gender == Person.Sex.MALE && p.getAge() > 18,
+				(p) -> p.getEmailAddress(),
+				(email) -> System.out.println(email)
+				);
+		//7
+		processGeneric(personList, 
+				(p) -> p.getGender() == Person.Sex.MALE,
+				(p) -> p.getEmailAddress(),
+				(email) -> System.out.println(email)
+				);
 		
+		//8 using lambda expression...
+		personList
+			.stream()
+			.filter(p -> p.getGender() == Person.Sex.MALE 
+					&& p.getAge() > 18
+					)
+			.map(p -> p.getEmailAddress())
+			.forEach(email -> System.out.println(email));
 	}
 	//4) 기존 interface인 predicate를 사용해서 동일한 방식으로 체크
 	public static void printPersonsWithPredicate(List<Person> personList, Predicate<Person> predicate) {
@@ -110,6 +131,31 @@ public class RosterTest {
 		}
 	}
 	
+	//6) 리턴할 데이터가 있는 경우에는 function interface 의 apply 메소드를 이용한다.
+	public static void processPersonsWithFunction(List<Person> personList,
+			Predicate<Person> predict,
+			Function<Person, String> function,
+			Consumer<String> consumer) {
+		for(Person person : personList) {
+			if(predict.test(person)) {
+				String data = function.apply(person);
+				consumer.accept(data);
+			}
+		}
+		
+	}
+	//7) use generic..
+	public static <x,y> void processGeneric(Iterable<x> iterableSource,
+			Predicate<x> predicate,
+			Function<x, y> function,
+			Consumer<y> consumer){
+		for(x source : iterableSource) {
+			if(predicate.test(source)){
+				y data = function.apply(source);
+				consumer.accept(data);
+			}
+		}
+	}
 	/**
 	 * <pre>
 	 * printPersons
