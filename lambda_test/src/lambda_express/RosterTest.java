@@ -65,10 +65,10 @@ public class RosterTest {
 			}
 		}
 		
-		//1) 요렇게 하면 인터페이스 상속한 클래스만 상속하면 되긴하는데 그래도 불편하지 않나..?
+		//1) Local Class
 		printPersons(personList, new checkPersonEligibleForSelectiveService());
 
-		//2) 익명 클래스를 해보면.. 양이 좀 많다..그렇다면 람다를
+		//2) 익명 클래스
 		printPersons(personList, new CheckPerson() {
 			
 			@Override
@@ -86,23 +86,23 @@ public class RosterTest {
 									p.getAge() > 18 &&
 									p.getAge() <30
 									);
-		//4
+		//4) 기존 interface인 predicate를 사용해서 동일한 방식으로 체크
 		printPersonsWithPredicate(personList, (Person p) -> p.getGender() == Person.Sex.MALE
 				&& p.getAge() > 18
 				&& p.getAge() < 30
 				);
-		//5
+		//5) 기존 consumer interface를 같이 사용하는 case!! 
 		printPersonsWithPredicateAndConsumer(personList, 
 				(person) -> person.getGender()==Person.Sex.MALE && person.getAge() > 18,
 				(person) -> person.printPerson()
 				);
-		//6
+		//6) 리턴할 데이터가 있는 경우에는 function interface 의 apply 메소드를 이용한다.
 		processPersonsWithFunction(personList, 
 				(p) -> p.gender == Person.Sex.MALE && p.getAge() > 18,
 				(p) -> p.getEmailAddress(),
 				(email) -> System.out.println(email)
 				);
-		//7
+		//7) use generic..
 		processGeneric(personList, 
 				(p) -> p.getGender() == Person.Sex.MALE,
 				(p) -> p.getEmailAddress(),

@@ -1,5 +1,15 @@
 package enumTypeTest;
 
+/**
+ * <pre> 
+ * EnumType2.java
+ * </pre>
+ *
+ * @author SEOL
+ * @date : 2018. 10. 2.
+ * @version : 
+ * 
+ */
 public class EnumType2 {
 	
 	public enum Planet{

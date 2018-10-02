@@ -10,6 +10,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 
+/**
+ * <pre> 
+ * Person.java
+ * </pre>
+ *
+ * @author SEOL
+ * @date : 2018. 10. 2.
+ * @version : 
+ * 
+ */
 @Getter
 @Setter
 @ToString

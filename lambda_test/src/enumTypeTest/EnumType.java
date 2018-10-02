@@ -2,6 +2,16 @@ package enumTypeTest;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+/**
+ * <pre> 
+ * EnumType.java
+ * </pre>
+ *
+ * @author SEOL
+ * @date : 2018. 10. 2.
+ * @version : 
+ * 
+ */
 public class EnumType {
 
 	public enum Day {
